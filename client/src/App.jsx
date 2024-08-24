@@ -11,27 +11,28 @@ import {
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <HomeLayout />,
+    children: [
+      {
+        index:true,
+        element: <Landing />
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardLayout />,
+      },
+    ],
   },
-  {
-    path: '/landing',
-    element: <Landing />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
-  {
-    path: '/dashboard',
-    element: <DashboardLayout />,
-  },
-  
-])
+]);
 
 
 const App = () => {
