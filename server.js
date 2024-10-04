@@ -7,6 +7,8 @@ const app = express()
 
 import morgan from 'morgan';
 
+// routers
+import jobRouter from './routers/jobrouter.js'
 
 // middleware
 app.use(express.json())
@@ -14,15 +16,12 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.post("/", (req, res) => {
-  console.log(req);
-
-  res.json({ message: "Data received", data: req.body });
-});
-
+// routes
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
+app.use("/api/v1/jobs", jobRouter);
 
 // 
 const port = process.env.PORT || 5100;
