@@ -16,6 +16,7 @@ import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 
 // routers
 import jobRouter from './routers/jobrouter.js'
+import authRouter from "./routers/authRouter.js";
 
 // middleware
 app.use(express.json())
@@ -24,16 +25,14 @@ if (process.env.NODE_ENV === "development") {
 }
 
 
-
 // routes
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
 
-
-
 app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/auth", authRouter);
 
 // error middleware
 app.use('*', (req,res)=>{
