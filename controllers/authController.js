@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
-import { hashPassword } from "../utils/passwordUtils.js";
-
+import { hashPassword, comparePassword } from "../utils/passwordUtils.js";
+import { UnauthenticatedError } from "../errors/customErrors.js";
 import User from "../models/UserModel.js";
 
 export const register = async (req, res) => {
@@ -14,5 +14,11 @@ export const register = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ msg: "user created" });
 };
 export const login = async (req, res) => {
-  res.send("login");
+  // check if user exists
+  // check if password is correct
+
+  const user = await User.findOne({ email: req.body.email });
+  const isValidUser = user && (await comparePassword(req.body.password, user.password));
+  if (!isValidUser) throw new UnauthenticatedError("invalid credentials");
+  res.send("login route");
 };
