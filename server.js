@@ -4,6 +4,8 @@ dotenv.config();
 
 import mongoose from 'mongoose';
 
+import {body, validationResult} from 'express-validator'
+
 // application
 import express from 'express'
 const app = express()
@@ -28,6 +30,30 @@ if (process.env.NODE_ENV === "development") {
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
+app.post(
+  "/api/v1/test",
+  [
+    body("name")
+      .notEmpty()
+      .withMessage("name is required!")
+      .isLength({ min: 50 })
+      .withMessage("name should 50"),
+  ],
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map((error) => error.msg);
+      return res.status(404).json({ errors: errorMessages });
+    }
+    next();
+  },
+  (req, res) => {
+    const { name } = req.body;
+    res.json({ msg: `hello ${name}` });
+  }
+);
+
 
 app.use("/api/v1/jobs", jobRouter);
 
