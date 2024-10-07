@@ -13,7 +13,6 @@ import morgan from 'morgan';
 
 // middlewares
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
-import { validateTest } from './middleware/validationMiddleware.js';
 
 // routers
 import jobRouter from './routers/jobrouter.js'
@@ -31,14 +30,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.post(
-  "/api/v1/test",
-  validateTest,
-  (req, res) => {
-    const { name } = req.body;
-    res.json({ msg: `hello ${name}` });
-  }
-);
+
 
 
 app.use("/api/v1/jobs", jobRouter);
