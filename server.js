@@ -11,6 +11,7 @@ const app = express()
 import morgan from 'morgan';
 
 // middlewares
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 
 // routers
 import jobRouter from './routers/jobrouter.js'
@@ -35,9 +36,7 @@ app.use('*', (req,res)=>{
   res.status(404).json({msg: 'Route not found'})
 })
 
-app.use((err,req,res,next)=>{
-  res.status(500).json({msg: 'Internal server error'})
-})
+app.use(errorHandlerMiddleware)
 
 // 
 const port = process.env.PORT || 5100;
