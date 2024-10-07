@@ -7,6 +7,9 @@ const app = express()
 
 import morgan from 'morgan';
 
+// middlewares
+import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+
 // routers
 import jobRouter from './routers/jobrouter.js'
 
@@ -15,6 +18,12 @@ app.use(express.json())
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+app.use('*', (req,res)=>{
+  res.status(404).json({msg: 'Route not found'})
+})
+
+app.use(errorHandlerMiddleware);
 
 // routes
 app.get("/", (req, res) => {
