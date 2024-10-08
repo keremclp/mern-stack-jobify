@@ -13,9 +13,11 @@ import morgan from 'morgan';
 
 // middlewares
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+import { authenticateUser } from "./middleware/authMiddleware.js";
+
 
 // routers
-import jobRouter from './routers/jobrouter.js'
+import jobRouter from './routers/jobRouter.js'
 import authRouter from "./routers/authRouter.js";
 
 // middleware
@@ -31,7 +33,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/jobs",authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
 
 // error middleware
