@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import mongoose from 'mongoose';
-
+import cookieParser from "cookie-parser";
 
 // application
 import express from 'express'
@@ -25,6 +25,7 @@ app.use(express.json())
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+app.use(cookieParser());
 
 
 // routes
