@@ -19,6 +19,7 @@ import { authenticateUser } from "./middleware/authMiddleware.js";
 // routers
 import jobRouter from './routers/jobRouter.js'
 import authRouter from "./routers/authRouter.js";
+import userRouter from "./routers/userRouter.js";
 
 // middleware
 app.use(express.json())
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/jobs",authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 
 // error middleware
 app.use('*', (req,res)=>{
