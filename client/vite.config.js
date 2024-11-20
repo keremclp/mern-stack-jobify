@@ -15,8 +15,3 @@ export default defineConfig({
     },
   },
 });
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 61fcd2b (after formatting)
